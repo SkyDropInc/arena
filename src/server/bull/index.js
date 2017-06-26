@@ -2,16 +2,6 @@ const _ = require('lodash');
 const Bull = require('bull');
 const path = require('path');
 
-/**
- * This function simply throws an exception when called, this is used to protect
- * some Bull functions that should never be called in this module.
- */
-function protectFunction() {
-  throw new Error('This function is protected !');
-}
-
-const protectedFunctions = ['process','start','add','setHandler','empty','run','clean','processJob','processJobs','startMoveUnlockedJobsToWait','moveUnlockedJobsToWait','updateDelayTimer','resume','pause'];
-
 class Queues {
   constructor() {
     this._queues = {};
@@ -43,7 +33,6 @@ class Queues {
     const bull = new Bull(name, {
       redis: { port, host }
     });
-    protectedFunctions.forEach(fn => bull[fn] = protectFunction);
 
     this._queues[queueHost] = this._queues[queueHost] || {};
     this._queues[queueHost][queueName] = bull;
