@@ -5,7 +5,6 @@ const Helpers = {
     return {
       failed: await queue.getFailedCount(),
       delayed: await queue.getDelayedCount(),
-      paused: await queue.getActiveCount(),
       waiting: await queue.getWaitingCount(),
       active: await queue.getActiveCount(),
       completed: await queue.getCompletedCount()
