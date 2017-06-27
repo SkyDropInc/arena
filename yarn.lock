@@ -200,20 +200,9 @@ buffer-shims@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/buffer-shims/-/buffer-shims-1.0.0.tgz#9978ce317388c649ad8793028c3477ef044a8b51"
 
-"bull@https://github.com/mixmaxhq/bull.git#1.0.0-mixmax8a":
+bull@mixmaxhq/bull#1.0.0-mixmax8a:
   version "1.0.0-mixmax3"
-  resolved "https://github.com/mixmaxhq/bull.git#a23d8f433a86bab918144f7414321e7f2e79f1a9"
-  dependencies:
-    bluebird "^3.4.1"
-    debuglog "^1.0.0"
-    lodash "^4.13.1"
-    node-uuid "^1.4.7"
-    redis "^2.6.2"
-    semver "^5.1.0"
-
-bull@mixmaxhq/bull#1.0.0-mixmax8:
-  version "1.0.0-mixmax3"
-  resolved "https://codeload.github.com/mixmaxhq/bull/tar.gz/34cec2f9a3cbdec75414863ee0cbff96051a956d"
+  resolved "https://codeload.github.com/mixmaxhq/bull/tar.gz/b8d14ae914c796ed678e7381b26aaa8669ec2e13"
   dependencies:
     bluebird "^3.4.1"
     debuglog "^1.0.0"
