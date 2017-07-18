@@ -1,39 +1,39 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+module.exports = function() {
+  const express = require('express');
+  const path = require('path');
+  const bodyParser = require('body-parser');
 
-const hbs = require('express-hbs');
-require('handlebars-helpers')({handlebars: hbs});
-require('./views/helpers/handlebars')(hbs);
-const hbsutils = require('hbs-utils')(hbs);
+  const handlebars = require('handlebars');
+  const exphbs = require('express-handlebars');
 
-const routes = require('./views/routes');
+  const hbs = exphbs.create({
+    defaultLayout: `${__dirname}/views/layout`,
+    handlebars,
+    partialsDir: `${__dirname}/views/partials/`,
+    extname: 'hbs'
+  });
 
-const app = express();
+  require('handlebars-helpers')({handlebars});
+  require('./views/helpers/handlebars')(handlebars);
 
-const defaultConfig = path.join(__dirname, 'config', 'index.json');
-app.set('bull config', require(defaultConfig));
+  const routes = require('./views/routes');
+  const app = express();
 
-app.set('views', `${__dirname}/views`);
-app.set('view engine', 'hbs');
-app.set('json spaces', 2);
+  const defaultConfig = path.join(__dirname, 'config', 'index.json');
+  app.set('bull config', require(defaultConfig));
 
-app.engine('hbs', hbs.express4({
-  defaultLayout: `${__dirname}/views/layout.hbs`,
-  partialsDir: `${__dirname}/views/partials`
-}));
+  app.locals.basePath = '';
 
-app.use(express.static(path.join(__dirname, '/../../public')));
-app.use(bodyParser.json());
+  app.set('views', `${__dirname}/views`);
+  app.set('view engine', 'hbs');
+  app.set('json spaces', 2);
 
-hbsutils.registerPartials(`${__dirname}/views'`, {
-  match: /(^|\/)_[^\/]+\.hbs$/
-});
+  app.engine('hbs', hbs.engine);
 
-app.use('/', routes);
+  app.use(express.static(path.join(__dirname, '/../../public')));
+  app.use(bodyParser.json());
 
-const server = app.listen(4567, () => {
-  console.log('Arena is running on port 4567');
-});
+  app.use('/', routes);
 
-module.exports = {app, server};
+  return app;
+};
